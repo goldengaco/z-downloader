@@ -14,7 +14,8 @@ from typing import Any, Callable
 from urllib.parse import urlparse
 
 from yt_dlp import YoutubeDL
-from yt_dlp.utils import DownloadError, ImpersonateTarget
+from yt_dlp.utils import DownloadError
+from yt_dlp.networking.impersonate import ImpersonateTarget
 
 
 ProgressCallback = Callable[[dict[str, Any]], None]
