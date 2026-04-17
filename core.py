@@ -478,6 +478,9 @@ class YoutubeEngine:
         extract_flat: bool = False,
     ) -> dict[str, Any]:
         logger = _CallbackLogger(log_callback)
+        options = {
+            "quiet": True,
+            "skip_download": True,
             "noplaylist": not download_playlist,
             "logger": logger,
             "impersonate": "chrome",
