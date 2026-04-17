@@ -1,0 +1,14 @@
+[project]
+name = "Z-Downloader"
+description = "Aplicación web local para descargar videos y audio de YouTube con alta portabilidad."
+primary_language = "python"
+ui_framework = "streamlit"
+
+[strict_constraints]
+use_ffmpeg = false
+allow_external_binaries = false
+preferred_format = "progressive (video+audio in single file)"
+
+[paths]
+download_dir = "./Descargas_Z"
+logs_dir = "./logs"
