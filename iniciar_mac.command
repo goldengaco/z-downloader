@@ -21,7 +21,8 @@ elif command -v python &>/dev/null && python --version 2>&1 | grep -q "Python 3"
 else
     echo "[ERROR] No se encontró Python 3 en este equipo."
     echo "Instala Python 3 y vuelve a ejecutar este archivo."
-    read -p "Presiona Enter para salir..."
+    echo "Presiona Enter para salir..."
+    read dummy
     exit 1
 fi
 
@@ -31,7 +32,9 @@ if [ ! -f "$VENV_DIR/bin/python" ] && [ ! -f "$VENV_DIR/bin/python3" ]; then
     echo "[1/4] Creando entorno virtual..."
     "$PYTHON_EXE" -m venv "$VENV_DIR" || {
         echo "[ERROR] No se pudo crear el entorno virtual."
-        read -p "Presiona Enter para salir..."
+        echo "Asegúrate de instalar dependencias de sistema necesarias."
+        echo "Presiona Enter para salir..."
+        read dummy
         exit 1
     }
 else
@@ -42,7 +45,8 @@ fi
 echo "[2/4] Activando entorno virtual..."
 source "$VENV_DIR/bin/activate" || {
     echo "[ERROR] No se pudo activar el entorno virtual."
-    read -p "Presiona Enter para salir..."
+    echo "Presiona Enter para salir..."
+    read dummy
     exit 1
 }
 
@@ -54,7 +58,8 @@ python -m pip install --upgrade pip
 echo "[4/4] Instalando dependencias..."
 python -m pip install -r requirements.txt || {
     echo "[ERROR] Fallo al instalar requirements.txt."
-    read -p "Presiona Enter para salir..."
+    echo "Presiona Enter para salir..."
+    read dummy
     exit 1
 }
 
@@ -68,6 +73,7 @@ echo ""
 python -m streamlit run app.py || {
     echo ""
     echo "[ERROR] Streamlit no pudo iniciarse correctamente."
-    read -p "Presiona Enter para salir..."
+    echo "Presiona Enter para salir..."
+    read dummy
     exit 1
 }
