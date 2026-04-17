@@ -792,8 +792,12 @@ class YoutubeEngine:
 
     def _build_video_audio_expression(self, selected_format: dict[str, Any]) -> str:
         video_format_id = selected_format["format_id"]
+        height = selected_format.get("height") or 0
+        ext = selected_format.get("ext") or "mp4"
         if not selected_format.get("merge_required"):
-            return video_format_id
+            # Fallback if the session-specific format_id expires (common on TikTok)
+            fallback = f"bestvideo[height<={height}][ext={ext}]+bestaudio/best[height<={height}][ext={ext}]/best[height<={height}]/best"
+            return f"{video_format_id}/{fallback}"
         return f"{video_format_id}+bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best"
 
     def _select_best_audio_format(
