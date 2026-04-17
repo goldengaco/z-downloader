@@ -75,8 +75,23 @@ if not exist "%~dp0Descargas_Z" (
 )
 
 echo.
-echo Lanzando interfaz web...
-echo Si el navegador no se abre solo, copia la URL local que mostrara Streamlit.
+echo ==========================================
+echo    Todo listo! Lanzando Z-Downloader...
+echo ==========================================
+echo.
+echo Veras 3 direcciones (URLs). Aqui te explicamos para que sirve cada una:
+echo.
+echo  - Local URL: Abre esta en tu navegador (Chrome, Edge, etc.) para usar
+echo    el descargador en ESTA computadora. Es la principal.
+echo.
+echo  - Network URL: Copia esta direccion en tu celular o tablet conectado
+echo    al mismo Wi-Fi y podras descargar desde ahi usando tu PC.
+echo.
+echo  - External URL: Es tu direccion publica de internet. Solo funciona
+echo    si abres puertos en tu modem/router (uso avanzado).
+echo.
+echo NO cierres esta ventana mientras uses el programa.
+echo Cuando termines, cierra esta ventana para apagar Z-Downloader.
 echo.
 python -m streamlit run app.py
 
