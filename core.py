@@ -15,7 +15,6 @@ from urllib.parse import urlparse
 
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import DownloadError
-from yt_dlp.networking.impersonate import ImpersonateTarget
 
 
 ProgressCallback = Callable[[dict[str, Any]], None]
@@ -310,7 +309,6 @@ class YoutubeEngine:
             cookies_browser=cookies_browser,
             file_organization=file_organization,
             embed_subtitles=embed_subtitles,
-            url=normalized_url,
         )
 
         try:
@@ -446,13 +444,6 @@ class YoutubeEngine:
 
 
 
-    def _is_tiktok_url(self, url: str) -> bool:
-        try:
-            host = urlparse(url).netloc.lower()
-        except Exception:
-            return False
-        return host in {"tiktok.com", "www.tiktok.com", "vm.tiktok.com", "vt.tiktok.com"}
-
     def _normalize_url(self, url: str) -> str:
         cleaned = (url or "").strip()
         if not cleaned:
@@ -497,8 +488,6 @@ class YoutubeEngine:
             options["extract_flat"] = "in_playlist"
         if cookies_browser:
             options["cookiesfrombrowser"] = (cookies_browser,)
-        if self._is_tiktok_url(url):
-            options["impersonate"] = ImpersonateTarget("chrome", None, "windows", None)
         try:
             with YoutubeDL(options) as ydl:
                 info = ydl.extract_info(url, download=False)
@@ -658,7 +647,6 @@ class YoutubeEngine:
         cookies_browser: str | None = None,
         file_organization: str = "Sin subcarpetas",
         embed_subtitles: bool = False,
-        url: str = "",
     ) -> dict[str, Any]:
         if file_organization == "Agrupar por Canal":
             outtmpl = "%(uploader)s/%(title).200B.%(ext)s"
@@ -690,9 +678,6 @@ class YoutubeEngine:
         
         if cookies_browser:
             options["cookiesfrombrowser"] = (cookies_browser,)
-
-        if self._is_tiktok_url(url):
-            options["impersonate"] = ImpersonateTarget("chrome", None, "windows", None)
 
         if allow_redownload:
             options["overwrites"] = True
