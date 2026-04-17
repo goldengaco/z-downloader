@@ -483,7 +483,6 @@ class YoutubeEngine:
             "skip_download": True,
             "noplaylist": not download_playlist,
             "logger": logger,
-            "impersonate": "chrome",
         }
         if extract_flat:
             options["extract_flat"] = "in_playlist"
@@ -662,7 +661,6 @@ class YoutubeEngine:
             "quiet": True,
             "noprogress": True,
             "logger": logger,
-            "impersonate": "chrome",
             "progress_hooks": hooks,
             "restrictfilenames": False,
             "noplaylist": not download_playlist,
